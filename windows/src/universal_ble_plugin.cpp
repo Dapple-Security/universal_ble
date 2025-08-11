@@ -576,12 +576,12 @@ namespace universal_ble
       else
       {
         const auto pair_result = co_await device_information.Pairing().PairAsync();
-        std::cout << "PairLog: Received pairing status: " << pair_result.Status() << std::endl;
+        std::cout << "PairLog: Received pairing status: " << pair_result.Status().ToString() << std::endl;
         bool is_paired = pair_result.Status() == DevicePairingResultStatus::Paired;
         result(is_paired);
 
         std::cout << "Checking for error message" << std::endl;
-        
+
         const std::string* error_msg = nullptr;
         const auto error_str = parse_pairing_fail_error(pair_result);
         if (error_str.has_value())
