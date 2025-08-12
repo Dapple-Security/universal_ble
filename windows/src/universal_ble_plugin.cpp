@@ -576,7 +576,7 @@ namespace universal_ble
       else
       {
         const auto pair_result = co_await device_information.Pairing().PairAsync();
-        std::cout << "PairLog: Received pairing status: " << pair_result.Status().ToString() << std::endl;
+        std::cout << "PairLog: Received pairing status: " << static_cast<int>(pair_result.Status()) << std::endl;
         bool is_paired = pair_result.Status() == DevicePairingResultStatus::Paired;
         result(is_paired);
 
@@ -593,10 +593,15 @@ namespace universal_ble
                               { callback_channel->OnPairStateChange(device_id, is_paired, error_msg, SuccessCallback, ErrorCallback); });
       }
     }
+    catch (const std::exception& ex)
+    {
+      std::cout << "PairLog: Exception: " << ex.what() << std::endl;
+      result(false);
+    }
     catch (...)
     {
-      result(false);
       std::cout << "PairLog: Unknown error" << std::endl;
+      result(false);
     }
   }
 
