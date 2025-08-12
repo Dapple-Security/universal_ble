@@ -580,6 +580,11 @@ namespace universal_ble
         bool is_paired = pair_result.Status() == DevicePairingResultStatus::Paired;
         result(is_paired);
 
+        // return if paired to avoid multiple results to method channel
+        if(is_paired) {
+          co_return;
+        }
+
         std::cout << "Checking for error message" << std::endl;
 
         const std::string* error_msg = nullptr;
