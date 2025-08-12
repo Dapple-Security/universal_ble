@@ -582,7 +582,7 @@ namespace universal_ble
 
         // return if paired to avoid multiple results to method channel
         if(is_paired) {
-          co_return;
+          //co_return;
         }
 
         std::cout << "Checking for error message" << std::endl;
